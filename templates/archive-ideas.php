@@ -1,13 +1,10 @@
 <?php
 get_header();
 
-if (isset($_POST['title'] )) {
-	require_once IMT_PLUGIN_DIR . '/includes/init/insert-ideas.php';
-}
-
 $categories = get_categories( array(
 	'type'     => 'post',
 	'taxonomy' => 'ideas_category',
+	'hide_empty'      => false
 ) );
 
 require_once IMT_PLUGIN_DIR . '/templates/view/category.php';

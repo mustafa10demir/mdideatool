@@ -7,12 +7,12 @@
     margin-left: 20%;
     border: 1px solid #e6e6e6;
     border-radius: 18px;
-    position: fixed;
-    top: 5rem;
+    position: absolute;
     z-index: 9999;
     background-color: white;
     padding: 30px;
     display: none;
+    top: 0;
 }
 
 .ideas-add-form-container {

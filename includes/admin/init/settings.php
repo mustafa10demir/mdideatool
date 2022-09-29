@@ -1,4 +1,8 @@
 <?php
+
+// Exit if accessed directly
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Ideas Settings Page Save And Form
  * @return void

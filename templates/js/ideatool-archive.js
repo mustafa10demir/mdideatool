@@ -33,63 +33,32 @@ jQuery(document).ready(function ($) {
     }
 
 
-    function load_posts_scrool() {
-        str = '&cat=' + cat + '&pageNumber=' + pageNumber + '&action=more_post_ajax';
-        $.ajax({
-            type: "POST",
-            dataType: "html",
-            url: ajax_posts_popular.ajaxurl,
-            data: str,
-            success: function (data) {
-                var $data = $(data);
-                if ($data.length) {
-                    if (pageNumber % 4 === 0) {
-                        $(".callaction").appendTo("#ajax-posts");
-                        $(".wpcf7-response-output").html('');
-                    }
-                    $("#ajax-posts").append($data);
-                    pageLoader = true;
-                    var ppp = ajax_posts_popular.ppp;
-                    $('.loaderdiv').css('display', 'none');
-                } else {
-                    $('.loaderdiv').css('display', 'none');
-                    $('.loaderdivfinish').css('display', 'block');
-                }
-            },
-        });
-        return false;
-    }
+    $("#ideas-insert-form").submit(function (e) {
+        e.preventDefault();
+        var form_data = new FormData();
+        var file_data = $('#imt-atc').prop('files')[0];
 
-    function load_posts(id) {
-        var str = '&cat=' + id + '&pageNumber=1&action=more_post_ajax';
-        $.ajax({
-            type: "POST",
-            dataType: "html",
-            url: ajax_posts_popular.ajaxurl,
-            data: str,
-            success: function (data) {
-                var $data = $(data);
-                if ($data.length) {
-                    cat = id;
-                    pageNumber = 2;
-                    pageLoader = true;
-                    $("#ajax-posts").html($(".callaction"));
-                    $('.callaction').css('display', 'none');
-                    $(".wpcf7-response-output").html('');
-                    $("#ajax-posts").html($data);
-                    $(".callaction").appendTo("#ajax-posts");
-                    $('.callaction').css('display', 'block');
-                }
+        form_data.append('action', 'imt_add_ideas');
+        form_data.append('_ajax_nonce', ajax_posts_imt.nonce);
+        form_data.append('file', file_data);
+        form_data.append('title', $("#imt-title").val());
+        form_data.append('exp', $("#imt-exp").val());
+        form_data.append('cat', $("#imt-cat").val());
+
+        jQuery.ajax({
+            url: ajax_posts_imt.ajax_url,
+            type: 'post',
+            contentType: false,
+            processData: false,
+            data: form_data,
+            success: function (response) {
+                alert("test");
+            },
+            error: function (response) {
+                console.log('error');
             }
         });
-        return false;
-    }
 
-    $(".getcat").on("click", function () {
-        load_posts($(this).data('category'));
-        $('.getcat').removeClass('active');
-        $(this).addClass('active');
-        $('.loaderdivfinish').css('display', 'none');
     });
 
 });
