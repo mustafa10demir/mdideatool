@@ -15,10 +15,16 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-define( 'MDIMT_PLUGIN', __FILE__ );
+define( 'IMT_PLUGIN', __FILE__ );
 
-define( 'MDIMT_PLUGIN_BASENAME', plugin_basename( MDIMT_PLUGIN ) );
+define( 'IMT_PLUGIN_POST_TYPE', 'ideas' );
 
-define( 'MDIMT_PLUGIN_DIR', untrailingslashit( dirname( MDIMT_PLUGIN ) ) );
+define( 'IMT_PLUGIN_BASENAME', plugin_basename( IMT_PLUGIN ) );
 
-require_once MDIMT_PLUGIN_DIR. '/includes/includes.php' ;
+define( 'IMT_PLUGIN_DIR', untrailingslashit( dirname( IMT_PLUGIN ) ) );
+
+define('IMT_PLUGIN_VERSION', '1.0.0');
+
+define('IMT_PLUGIN_TEMPLATES', plugins_url( '/templates', __FILE__ ));
+
+require_once IMT_PLUGIN_DIR. '/includes/includes.php' ;
