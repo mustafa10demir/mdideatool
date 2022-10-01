@@ -1,10 +1,3 @@
-<div class="col-md-2">
-    <button id="imt-add-ideas" type="button" class="btn btn-success">+ <?php _e( 'Add Ideas',
-			'md-idea-tool' ); ?></button>
-</div>
-</div>
-</div>
-
 <div class="ideas-add-form-container"></div>
 <form class="ideas-add-form" id="ideas-insert-form">
     <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close" id="ideas-form-close">
@@ -46,11 +39,11 @@
 				'md-idea-tool' ); ?></label>
         <div class="col-sm-10">
             <input type="file" id="imt-atc" class="form-control-file" name="attachment"
-                   accept="image/jpeg, .doc,.docx,application/msword, .pdf" required>
+                   accept="image/jpeg, image/png, .doc,.docx,application/msword, .pdf" required>
         </div>
     </div>
     <div class="form-group row ideas-form-button">
-        <button type="submit" class="btn btn-primary"><?php _e( 'Send Ideas',
+        <button id="ideas-button" type="submit" class="btn btn-primary"><?php _e( 'Send Ideas',
 				'md-idea-tool' ); ?></button>
     </div>
 </form>

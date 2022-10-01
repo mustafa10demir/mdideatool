@@ -39,3 +39,53 @@
         overflow: scroll;
     }
 }
+
+.add-ideas-row {
+    text-align: right;
+    margin-bottom: 30px;
+}
+
+.categories-swiper .btn {
+    min-width: 8.375rem;
+    width: auto;
+    margin-right: 30px;
+}
+
+.swiper-pointer-events {
+    touch-action: pan-y;
+}
+
+.ideas-category .swiper-slide {
+   width: auto !important;
+}
+
+.ideas-card .author-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid #4266ff;
+}
+
+
+.ideas-card .author-name {
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.ideas-card .btn-col{
+    text-align: right;
+}
+
+
+.ideas-card .btn{
+    margin-bottom: 0;
+}
+
+.ideas-card .imt-badge{
+    font-size: 0.6rem;
+}
+
+.imt-loader-container {
+    text-align: center;
+    margin: 30px;
+}

@@ -1,11 +1,16 @@
 <?php
 get_header();
 
-$categories = get_categories( array(
-	'type'     => 'post',
-	'taxonomy' => 'ideas_category',
-	'hide_empty'      => false
-) );
+function imt_get_gategories($hide_empty){
+	return get_categories( array(
+		'type'     => 'post',
+		'taxonomy' => 'ideas_category',
+		'hide_empty'      => $hide_empty
+	) );
+}
+
+$categories = imt_get_gategories(false);
+$categoriesNotNull = imt_get_gategories(true);
 
 require_once IMT_PLUGIN_DIR . '/templates/view/category.php';
 if (is_user_logged_in()){
@@ -14,11 +19,9 @@ if (is_user_logged_in()){
 	require_once IMT_PLUGIN_DIR . '/templates/view/login.php';
 }
 
-
-if ( have_posts() ) : while ( have_posts() ) : the_post();
-	echo '<div class="entry-content container">';
-	require_once IMT_PLUGIN_DIR . '/templates/view/ideas-box.php';
-	echo '</div>';
-endwhile; endif;
-
+echo '<div id="imt-ideas-container">';
+	if ( have_posts() ) : while ( have_posts() ) : the_post();
+		include IMT_PLUGIN_DIR . '/templates/view/ideas-box.php';
+	endwhile; endif;
+echo '</div>';
 get_footer();

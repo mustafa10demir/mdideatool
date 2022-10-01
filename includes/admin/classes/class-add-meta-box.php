@@ -38,6 +38,14 @@ if ( ! class_exists( 'imtAddMetaBox' ) ) :
 					'side',
 					'low'
 				);
+				add_meta_box(
+					'imt_score_user',
+					__( 'Score Users', 'md-idea-tool' ),
+					array( $this, 'score_user_meta_box_content' ),
+					$post_type,
+					'side',
+					'low'
+				);
 			}
 		}
 
@@ -48,7 +56,7 @@ if ( ! class_exists( 'imtAddMetaBox' ) ) :
 		 * @return void
 		 */
 		public function save( $post_id ) {
-            $types = ['imt_attachment', 'imt_score'];
+            $types = ['imt_attachment', 'imt_score', 'imt_score_user'];
             if ($_POST){
 	            foreach ($types as $type){
 		            $data = sanitize_text_field( $_POST[ $type ] );
@@ -69,6 +77,21 @@ if ( ! class_exists( 'imtAddMetaBox' ) ) :
 			$value = get_post_meta( $post->ID, '_imt_attachment', true );
 			?>
             <input type="text" id="imt_attachment" name="imt_attachment" value="<?php echo esc_attr( $value ); ?>"/>
+			<?php
+		}
+
+		/**
+		 * Meta Box Input Form
+		 *
+		 * @param $post
+		 *
+		 * @return void
+		 */
+		public function score_user_meta_box_content( $post ) {
+			// Use get_post_meta to retrieve an existing value from the database.
+			$value = get_post_meta( $post->ID, '_imt_score_usert', true );
+			?>
+            <input type="text" id="imt_attachment" name="imt_score_user" value="<?php echo esc_attr( $value ); ?>"/>
 			<?php
 		}
 
