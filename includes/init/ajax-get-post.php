@@ -3,6 +3,9 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * @return void
+ */
 function imt_more_post_ajax() {
 	check_ajax_referer( 'imt_nonce' );
 

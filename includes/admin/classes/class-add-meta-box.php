@@ -89,7 +89,7 @@ if ( ! class_exists( 'imtAddMetaBox' ) ) :
 		 */
 		public function score_user_meta_box_content( $post ) {
 			// Use get_post_meta to retrieve an existing value from the database.
-			$value = get_post_meta( $post->ID, '_imt_score_usert', true );
+			$value = get_post_meta( $post->ID, '_imt_score_user', true );
 			?>
             <input type="text" id="imt_attachment" name="imt_score_user" value="<?php echo esc_attr( $value ); ?>"/>
 			<?php
