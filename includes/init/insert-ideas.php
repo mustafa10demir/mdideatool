@@ -25,7 +25,8 @@ function imt_add_ideas_post() {
 			'post_type'    => IMT_PLUGIN_POST_TYPE,
 			'post_status'  => 'pending',
 		);
-		wp_insert_post( $ideas );
+		$post_id = wp_insert_post( $ideas );
+		update_post_meta($post_id, '_imt_score_count', 0);
 
 	} else {
 		header('HTTP/1.1 500 Internal Server Booboo');

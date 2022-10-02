@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) || exit;
 
 //Setup
 require_once IMT_PLUGIN_DIR . '/includes/init/insert-ideas.php';
+require_once IMT_PLUGIN_DIR . '/includes/init/add-score.php';
 require_once IMT_PLUGIN_DIR . '/includes/init/ajax-get-post.php';
 require_once IMT_PLUGIN_DIR. '/includes/admin/classes/class-add-meta-box.php';
 require_once IMT_PLUGIN_DIR. '/includes/admin/classes/class-add-enqueue.php';

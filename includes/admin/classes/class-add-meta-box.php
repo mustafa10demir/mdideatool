@@ -38,31 +38,25 @@ if ( ! class_exists( 'imtAddMetaBox' ) ) :
 					'side',
 					'low'
 				);
-				add_meta_box(
-					'imt_score_user',
-					__( 'Score Users', 'md-idea-tool' ),
-					array( $this, 'score_user_meta_box_content' ),
-					$post_type,
-					'side',
-					'low'
-				);
 			}
 		}
 
 		/**
-         * Save meta box, score and attachment
+		 * Save meta box, score and attachment
+		 * for the future
+		 *
 		 * @param $post_id
 		 *
 		 * @return void
 		 */
 		public function save( $post_id ) {
-            $types = ['imt_attachment', 'imt_score', 'imt_score_user'];
-            if ($_POST){
-	            foreach ($types as $type){
-		            $data = sanitize_text_field( $_POST[ $type ] );
-		            update_post_meta( $post_id, '_' . $type, $data );
-	            }
-            }
+			$types = [ 'imt_attachment', 'imt_score' ];
+			if ( $_POST ) {
+				foreach ( $types as $type ) {
+					$data = sanitize_text_field( $_POST[ $type ] );
+					update_post_meta( $post_id, '_' . $type, $data );
+				}
+			}
 		}
 
 		/**
@@ -75,24 +69,7 @@ if ( ! class_exists( 'imtAddMetaBox' ) ) :
 		public function attachment_meta_box_content( $post ) {
 			// Use get_post_meta to retrieve an existing value from the database.
 			$value = get_post_meta( $post->ID, '_imt_attachment', true );
-			?>
-            <input type="text" id="imt_attachment" name="imt_attachment" value="<?php echo esc_attr( $value ); ?>"/>
-			<?php
-		}
-
-		/**
-		 * Meta Box Input Form
-		 *
-		 * @param $post
-		 *
-		 * @return void
-		 */
-		public function score_user_meta_box_content( $post ) {
-			// Use get_post_meta to retrieve an existing value from the database.
-			$value = get_post_meta( $post->ID, '_imt_score_user', true );
-			?>
-            <input type="text" id="imt_attachment" name="imt_score_user" value="<?php echo esc_attr( $value ); ?>"/>
-			<?php
+			echo '<a href="' . $value . '" target="_blank">' . $value . '</a>';
 		}
 
 		/**
@@ -104,10 +81,13 @@ if ( ! class_exists( 'imtAddMetaBox' ) ) :
 		 */
 		public function score_meta_box_content( $post ) {
 			// Use get_post_meta to retrieve an existing value from the database.
-			$value = get_post_meta( $post->ID, '_imt_score', true );
-			?>
-            <input type="number" id="imt_score" name="imt_score" value="<?php echo esc_attr( $value ); ?>"/>
-			<?php
+			$get_score = json_decode( get_post_meta( $post->ID, '_imt_score', true ) );
+			if ( is_array( $get_score ) ) {
+				$score = count( $get_score );
+			} else {
+				$score = 0;
+			}
+			echo '<h2>' . $score . '</h2>';
 		}
 	}
 endif;

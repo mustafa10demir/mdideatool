@@ -35,6 +35,12 @@ if ( ! class_exists( 'imtAddEnqueue' ) ) :
 				rand( 0, 100 )
 			// TODO IMT_PLUGIN_VERSION
 			);
+			wp_enqueue_script( 'imt-script-core',
+				IMT_PLUGIN_TEMPLATES . '/js/ideatool-core.js',
+				array( 'jquery' ),
+				rand( 0, 100 )
+			// TODO IMT_PLUGIN_VERSION
+			);
 			wp_localize_script(
 				'imt-script',
 				'ajax_posts_imt',

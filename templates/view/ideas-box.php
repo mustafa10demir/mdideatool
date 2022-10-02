@@ -1,3 +1,17 @@
+<?php
+$get_score = json_decode( get_post_meta( get_the_ID(), '_imt_score', true ) );
+$is_score = false;
+if ( is_array( $get_score ) ) {
+	$score = count( $get_score );
+	if ( is_user_logged_in() ) {
+		if ( array_search( get_current_user_id(), $get_score ) !== false ) {
+			$is_score = true;
+		}
+	}
+} else {
+	$score = 0;
+}
+?>
 <div class="entry-content container">
     <div class="card ideas-card">
         <div class="card-header">
@@ -10,8 +24,11 @@
                 </div>
                 <div class="col-md-6 btn-col">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-success">
-                            Like <span class="imt-badge text-bg-secondary">4</span>
+                        <button type="button" class="btn btn-outline-success imt-add-score<?php echo get_the_ID(); if ( $is_score ) {
+							echo " active";
+						} ?>" onclick="imt_add_score(<?php echo get_the_ID(). ','. is_user_logged_in(); ?>)">
+	                        <?php _e( 'LIKE', 'md-idea-tool' ); ?> <span class="imt-badge text-bg-secondary"
+                                       id="score<?php echo get_the_ID(); ?>"><?php echo $score; ?></span>
                         </button>
                     </div>
                 </div>

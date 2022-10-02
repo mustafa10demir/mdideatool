@@ -89,3 +89,12 @@
     text-align: center;
     margin: 30px;
 }
+
+.imt-order-form-container select {
+    width: 175px;
+    float: right;
+}
+
+.imt-loading {
+    display: none;
+}

@@ -9,19 +9,34 @@ defined( 'ABSPATH' ) || exit;
 function imt_more_post_ajax() {
 	check_ajax_referer( 'imt_nonce' );
 
-	$page = sanitize_text_field( $_POST['pageNumber'] );
-	$cat  = sanitize_text_field( $_POST['cat'] );
+	$page  = sanitize_text_field( $_POST['pageNumber'] );
+	$cat   = sanitize_text_field( $_POST['cat'] );
+	$order = [];
 	if ( $cat == 0 ) {
 		$cat = [];
 	} else {
-		$cat = array(
-			array(
+		$cat = [
+			[
 				'taxonomy' => 'ideas_category',
 				'field'    => 'id',
 				'terms'    => $cat,
-			),
-		);
+			],
+		];
 	}
+
+	if ( isset( $_POST['order'] ) ) {
+		if ( $_POST['order'] == 3 ) {
+			$order = [
+				'orderby'  => 'meta_value_num',
+				'meta_key' => '_imt_score_count',
+			];
+		} else if($_POST['order'] == 2) {
+			$order = [
+				'order' => 'ASC'
+			];
+		}
+	}
+
 	header( "Content-Type: text/html" );
 	$args = array(
 		'suppress_filters' => true,
@@ -30,6 +45,7 @@ function imt_more_post_ajax() {
 		'paged'            => $page,
 		'tax_query'        => $cat,
 	);
+	$args = array_merge_recursive($args, $order);
 	$loop = new WP_Query( $args );
 	if ( $loop->have_posts() ) {
 		while ( $loop->have_posts() ) {

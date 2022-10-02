@@ -1,5 +1,10 @@
 jQuery(document).ready(function ($) {
 
+    let pageNumber = 1;
+    let cat = 0;
+    let order = 0;
+    let pageLoader = true;
+
     $('#imt-add-ideas').on("click", function () {
         $('.ideas-add-form-container').css('display', 'block');
         $('.ideas-add-form').css('display', 'block');
@@ -58,25 +63,31 @@ jQuery(document).ready(function ($) {
             },
             error: function (response) {
                 $('#ideas-button').prop('disabled', 'false');
-                console.log(response);
             }
         });
     });
 
-    $('.imt-cat-ajax').on('click', function (){
-        load_posts($(this).data('category'));
+    $('.imt-cat-ajax').on('click', function () {
+        pageNumber = 1;
+        cat = $(this).data('category');
+        load_posts(cat, order, pageNumber, false);
         $('.imt-cat-ajax').removeClass('active');
         $(this).addClass('active');
     });
-    let pageNumber = 2;
-    let cat = 0;
-    function load_posts(id) {
-        $("#imt-ideas-container").html('<div class="container imt-loader-container"><div class="spinner-border" role="status"></div></div>');
+
+    function load_posts(id, order, page_number, html = true) {
+        pageLoader = false;
+        if (!html){
+            $("#imt-ideas-container").html('<div class="container imt-loader-container"><div class="spinner-border" role="status"></div></div>');
+        } else {
+            $('.imt-loading').css('display', 'block');
+        }
         var form_data = new FormData();
         form_data.append('action', 'imt_more_post_ajax');
         form_data.append('_ajax_nonce', ajax_posts_imt.nonce);
         form_data.append('cat', id);
-        form_data.append('pageNumber', 1);
+        form_data.append('pageNumber', page_number);
+        form_data.append('order', order);
         jQuery.ajax({
             url: ajax_posts_imt.ajax_url,
             type: "POST",
@@ -84,17 +95,39 @@ jQuery(document).ready(function ($) {
             processData: false,
             data: form_data,
             success: function (data) {
+                $('.imt-loading').css('display', 'none');
+                pageLoader = true;
                 var $data = $(data);
                 if ($data.length) {
-                    cat = id;
-                    pageNumber = 2;
-                    $("#imt-ideas-container").html($data);
+                    if (html) {
+                        $("#imt-ideas-container").append($data);
+                    } else {
+                        $("#imt-ideas-container").html($data);
+                    }
+
                 }
             }
         });
         return false;
     }
 
+    $('#imt-order').change(function () {
+        order = $(this).val();
+        load_posts(cat, order, pageNumber);
+    });
+
+    var lastScrollTop = 0;
+    $(window).on('scroll', function () {
+        var st = $(this).scrollTop();
+        if (st > lastScrollTop) {
+            if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100 && pageLoader) {
+                pageLoader = false;
+                pageNumber++;
+                load_posts(cat, order, pageNumber);
+            }
+        }
+        lastScrollTop = st;
+    });
 
     const categoriesSwiper = new Swiper('.categories-swiper', {
         slidesPerView: 'auto',
