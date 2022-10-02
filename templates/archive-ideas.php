@@ -26,8 +26,6 @@ if ( have_posts() ) {
 		include IMT_PLUGIN_DIR . '/templates/view/ideas-box.php';
 	endwhile;
 }
-echo '</div>';
-?>
-	<div class="container imt-loader-container imt-loading"><div class="spinner-border" role="status"></div></div>
-<?php
+echo '</div><div class="container imt-loader-container imt-loading"><div class="spinner-border" role="status"></div></div>';
+
 get_footer();

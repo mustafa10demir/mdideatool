@@ -1,16 +1,5 @@
 <?php
-$get_score = json_decode( get_post_meta( get_the_ID(), '_imt_score', true ) );
-$is_score = false;
-if ( is_array( $get_score ) ) {
-	$score = count( $get_score );
-	if ( is_user_logged_in() ) {
-		if ( array_search( get_current_user_id(), $get_score ) !== false ) {
-			$is_score = true;
-		}
-	}
-} else {
-	$score = 0;
-}
+require_once IMT_PLUGIN_DIR . '/templates/init/core.php';
 ?>
 <div class="entry-content container">
     <div class="card ideas-card">
@@ -24,11 +13,12 @@ if ( is_array( $get_score ) ) {
                 </div>
                 <div class="col-md-6 btn-col">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-success imt-add-score<?php echo get_the_ID(); if ( $is_score ) {
+                        <button type="button" class="btn btn-outline-success imt-add-score<?php echo get_the_ID();
+						if ( $is_score ) {
 							echo " active";
-						} ?>" onclick="imt_add_score(<?php echo get_the_ID(). ','. is_user_logged_in(); ?>)">
-	                        <?php _e( 'LIKE', 'md-idea-tool' ); ?> <span class="imt-badge text-bg-secondary"
-                                       id="score<?php echo get_the_ID(); ?>"><?php echo $score; ?></span>
+						} ?>" onclick="imt_add_score(<?php echo get_the_ID() . ',' . is_user_logged_in(); ?>)">
+							<?php _e( 'LIKE', 'md-idea-tool' ); ?> <span class="imt-badge text-bg-secondary"
+                                                                         id="score<?php echo get_the_ID(); ?>"><?php echo $score; ?></span>
                         </button>
                     </div>
                 </div>
@@ -46,9 +36,9 @@ if ( is_array( $get_score ) ) {
 				?>
             </p>
 			<?php
-			$value = get_post_meta( get_the_ID(), '_imt_attachment', true );
-			if ( $value ) {
-				echo '<a target="_blank" href="' . esc_attr( $value ) . '" class="btn btn-success">' . __( 'View Attachment',
+			$attachment = get_post_meta( get_the_ID(), '_imt_attachment', true );
+			if ( $attachment ) {
+				echo '<a target="_blank" href="' . esc_attr( $attachment ) . '" class="btn btn-success">' . __( 'View Attachment',
 						'md - idea - tool' ) . '</a>';
 			}
 			?>
