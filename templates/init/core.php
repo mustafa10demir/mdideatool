@@ -16,3 +16,14 @@ if ( is_array( $get_score ) ) {
 } else {
 	$score = 0;
 }
+
+
+$current_time = new DateTime(current_time('d/m/Y'));
+$post_time = new DateTime(get_the_time('d/m/Y'));
+$last_time = $post_time->modify('+1 day');
+
+if ($last_time < $current_time){
+	$like_time = false;
+} else {
+	$like_time = true;
+}

@@ -16,9 +16,13 @@ require_once IMT_PLUGIN_DIR . '/templates/init/core.php';
                         <button type="button" class="btn btn-outline-success imt-add-score<?php echo get_the_ID();
 						if ( $is_score ) {
 							echo " active";
-						} ?>" onclick="imt_add_score(<?php echo get_the_ID() . ',' . is_user_logged_in(); ?>)">
-							<?php _e( 'LIKE', 'md-idea-tool' ); ?> <span class="imt-badge text-bg-secondary"
-                                                                         id="score<?php echo get_the_ID(); ?>"><?php echo $score; ?></span>
+						} ?>" <?php if ( $like_time ) { ?>
+                                onclick="imt_add_score(<?php echo get_the_ID() . ',' . is_user_logged_in(); ?>)">
+							<?php _e( 'LIKE', 'md-idea-tool' );
+							} else {
+								echo '>' . __( 'Time is up', 'md-idea-tool' );
+							} ?> <span class="imt-badge text-bg-secondary"
+                                       id="score<?php echo get_the_ID(); ?>"><?php echo $score; ?></span>
                         </button>
                     </div>
                 </div>

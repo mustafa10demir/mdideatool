@@ -4,9 +4,9 @@
         <table class="form-table" role="presentation">
             <tbody>
             <tr>
-                <th scope="row"><label for="blogname"><?php _e( 'Idea Deadline Hours', 'md-idea-tool' ); ?></label></th>
+                <th scope="row"><label for="blogname"><?php _e( 'Idea Deadline Day', 'md-idea-tool' ); ?></label></th>
                 <td>
-                    <input name="hours" type="text" id="hours" value="<?php echo $hours ?>"
+                    <input name="day" type="text" id="day" value="<?php echo $day ?>"
                            class="regular-text">
                 </td>
             </tr>

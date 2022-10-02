@@ -8,9 +8,9 @@ defined( 'ABSPATH' ) || exit;
  * @return void
  */
 function imt_settings_template() {
-	if (isset($_POST['hours'])){
-		update_option('imt_deadline_hours', sanitize_text_field($_POST['hours']));
+	if (isset($_POST['day'])){
+		update_option('imt_deadline_hours', sanitize_text_field($_POST['day']));
 	}
-	$hours = get_option('imt_deadline_hours', 24);
+	$day = get_option('imt_deadline_hours', 24);
     require_once IMT_PLUGIN_DIR. '/includes/admin/templates/settings.php';
 }
