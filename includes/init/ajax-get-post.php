@@ -57,4 +57,5 @@ function imt_more_post_ajax() {
 	wp_die();
 }
 
-add_action( 'wp_ajax_imt_more_post_ajax', 'imt_more_post_ajax' );
+add_action('wp_ajax_nopriv_imt_more_post_ajax', 'imt_more_post_ajax');
+add_action('wp_ajax_imt_more_post_ajax', 'imt_more_post_ajax' );
