@@ -113,7 +113,7 @@ jQuery(document).ready(function ($) {
 
     $('#imt-order').change(function () {
         order = $(this).val();
-        load_posts(cat, order, pageNumber);
+        load_posts(cat, order, pageNumber, false);
     });
 
     var lastScrollTop = 0;
